@@ -44,25 +44,47 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
-      /*  Transaction transaction = session.beginTransaction();
-
-        Query query = session.createSQLQuery("INSERT INTO people(id, name, last_name, age)").addEntity(User.class);
-        query.executeUpdate();
-        transaction.commit();*/
+        Transaction transaction = session.beginTransaction();
+        User user = new User();
+        user.setName(name);
+        user.setLastName(lastName);
+        user.setAge(age);
+        session.save(user);
+        transaction.commit();
+        System.out.println("User с именем " + name + " добавлен в базу данных");
     }
 
     @Override
     public void removeUserById(long id) {
-
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            User user = session.get(User.class, id);
+            session.delete(user);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
     }
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        Transaction transaction = session.beginTransaction();
+        List<User> list = session.createQuery("FROM User").list();
+        transaction.commit();
+        System.out.println(list);
+        return list;
     }
 
     @Override
     public void cleanUsersTable() {
-
+        Transaction transaction = session.beginTransaction();
+        String stringQuery = "DELETE FROM User";
+        Query query = session.createQuery(stringQuery);
+        query.executeUpdate();
+        transaction.commit();
     }
 }
