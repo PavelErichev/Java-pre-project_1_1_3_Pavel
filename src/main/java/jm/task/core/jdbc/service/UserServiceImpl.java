@@ -22,7 +22,12 @@ public class UserServiceImpl implements UserService {
     }
 
     public void removeUserById(long id) {
-        userDao.removeUserById(id);
+        User user = userDao.getUserById(id);
+        if (user != null) {
+          userDao.removeUserById(user);
+        } else {
+            throw new IllegalArgumentException("User не найден");
+        }
     }
 
     public List<User> getAllUsers() {

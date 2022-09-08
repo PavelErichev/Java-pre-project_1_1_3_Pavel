@@ -28,9 +28,8 @@ public class Util {
         return connection;
     }
 
-    private static SessionFactory sessionFactory;
     public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
+        SessionFactory sessionFactory = null;
             try {
                 Configuration configuration = new Configuration();
                 Properties settings = new Properties();
@@ -60,7 +59,6 @@ public class Util {
                 System.out.println("Problem creating session factory");
                 e.printStackTrace();
             }
-        }
         return sessionFactory;
     }
 }

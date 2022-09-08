@@ -57,6 +57,11 @@ public class UserDaoJDBCImpl implements UserDao {
         }*/
     }
 
+    @Override
+    public void removeUserById(User user) {
+
+    }
+
     public void removeUserById(long id) {
         /*try {
             Connection connection = Util.getConnection();
@@ -91,6 +96,12 @@ public class UserDaoJDBCImpl implements UserDao {
         return people;*/
         return null;
     }
+
+    @Override
+    public User getUserById(Long user_id) {
+        return null;
+    }
+
 
     public void cleanUsersTable() {
         /*try {

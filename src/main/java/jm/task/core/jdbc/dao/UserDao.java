@@ -11,9 +11,11 @@ public interface UserDao {
 
     void saveUser(String name, String lastName, byte age);
 
-    void removeUserById(long id);
+    void removeUserById(User user);
 
     List<User> getAllUsers();
+
+    User getUserById(Long user_id);
 
     void cleanUsersTable();
 }
